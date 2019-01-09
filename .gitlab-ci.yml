@@ -239,7 +239,6 @@ cstor-k8s-snapshot-clone-creation-{snapshot-clone-cStor}:
   script:
    - ./script/apps/percona/functional/cstor/k8s-snapshot-clone-cstor
 
-
 app-replica-scale-{cassandra-cstor}:
   extends: .func_test_template #dependencies: cassandra-cstor
   script:
@@ -249,6 +248,16 @@ app-upgrade-deployment-{jenkins-cstor}:
   extends: .func_test_template #dependencies: jenkins-cstor
   script:
    - ./script/apps/jenkins/functional/cstor/app-upgrade-deployment
+
+Snapshot-rebuild-single-replica-{percona-cstor}:
+  extends: .func_test_template
+  script:
+   - ./script/apps/percona/functional/cstor/snapshot-rebuild-single-rep
+
+Snapshot-rebuild-multiple-replica-{percona-cstor}:
+  extends: .func_test_template
+  script:
+   - ./script/apps/percona/functional/cstor/snapshot-rebuild-multiple-rep
 
 ## Define job template for chaos jobs 
 
@@ -349,6 +358,30 @@ cassandra-jiva-deprovision:
   extends: .app_deprovision_template
   script:
    - ./script/apps/cassandra/deprovision/cassandra-app-deprovision-jiva
+
+## PERCONA-CSTOR
+percona-cstor-deprovision:
+  extends: .app_deprovision_template
+  script:
+   - ./script/apps/percona/deprovision/percona-app-deprovision-cstor
+
+## MONGODB-CSTOR
+mongodb-cstor-deprovision:
+  extends: .app_deprovision_template
+  script:
+   - ./script/apps/mongo/deprovision/mongo-app-deprovision-cstor
+
+## JENKINS-CSTOR
+jenkins-cstor-deprovision:
+  extends: .app_deprovision_template
+  script:
+   - ./script/apps/jenkins/deprovision/jenkins-app-deprovision-cstor
+
+## CASSANDRA-CSTOR
+cassandra-cstor-deprovision:
+  extends: .app_deprovision_template
+  script:
+   - ./script/apps/cassandra/deprovision/cassandra-app-deprovision-cstor
 
 cleanup-packet:
   when: always
